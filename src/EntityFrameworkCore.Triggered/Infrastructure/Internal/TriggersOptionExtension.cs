@@ -132,7 +132,10 @@ namespace EntityFrameworkCore.Triggered.Infrastructure.Internal
             services.TryAddScoped<ITriggerServiceProviderAccessor>(serviceProvider => serviceProvider.GetRequiredService<ApplicationTriggerServiceProviderAccessor>());
 
             services.TryAddSingleton<ITriggerTypeRegistryService, TriggerTypeRegistryService>();
-            services.TryAddScoped<ITriggerDiscoveryService, TriggerDiscoveryService>();
+
+            services.AddScoped<TriggerDiscoveryService>();
+            services.AddScoped<IResettableService>(serviceProvider => serviceProvider.GetRequiredService<TriggerDiscoveryService>());
+            services.TryAddScoped<ITriggerDiscoveryService>(serviceProvider => serviceProvider.GetRequiredService<TriggerDiscoveryService>());
 
             services.TryAddScoped<TriggerService>();
             services.TryAddScoped<IResettableService>(serviceProvider => serviceProvider.GetRequiredService<TriggerService>());
