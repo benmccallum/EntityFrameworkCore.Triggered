@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using EntityFrameworkCore.Triggered.Internal;
 using EntityFrameworkCore.Triggered.Internal.RecursionStrategy;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -54,7 +55,7 @@ namespace EntityFrameworkCore.Triggered
             return triggerSession;
         }
 
-        public void ResetState() 
+        public void ResetState()
         {
             if (_currentTriggerSession != null)
             {
