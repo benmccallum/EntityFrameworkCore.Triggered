@@ -44,7 +44,7 @@ namespace EntityFrameworkCore.Triggered
 
             if (serviceProvider != null)
             {
-                _triggerDiscoveryService.SetServiceProvider(serviceProvider);
+                _triggerDiscoveryService.ServiceProviderAccessor = new TriggerServiceProviderAccessor(serviceProvider);
             }
 
             var triggerSession = new TriggerSession(this, _options, _triggerDiscoveryService, triggerContextTracker, _loggerFactory.CreateLogger<TriggerSession>());
@@ -54,10 +54,18 @@ namespace EntityFrameworkCore.Triggered
             return triggerSession;
         }
 
-        public void ResetState() => _currentTriggerSession?.Dispose();
+        public void ResetState() 
+        {
+            if (_currentTriggerSession != null)
+            {
+                _currentTriggerSession.Dispose();
+                _currentTriggerSession = null;
+            }
+        }
+
         public Task ResetStateAsync(CancellationToken cancellationToken = default)
         {
-            _currentTriggerSession?.Dispose();
+            ResetState();
 
             return Task.CompletedTask;
         }

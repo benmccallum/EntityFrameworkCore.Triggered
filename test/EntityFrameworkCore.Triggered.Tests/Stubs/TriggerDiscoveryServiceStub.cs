@@ -9,9 +9,9 @@ namespace EntityFrameworkCore.Triggered.Tests.Stubs
 {
     public class TriggerDiscoveryServiceStub : ITriggerDiscoveryService
     {
+        public ITriggerServiceProviderAccessor ServiceProviderAccessor { get; set; }
+
         public IEnumerable<TriggerDescriptor> DiscoverTriggers(Type openTriggerType, Type entityType, Func<Type, ITriggerTypeDescriptor> triggerTypeDescriptorFactory)
             => Enumerable.Empty<TriggerDescriptor>();
-
-        public void SetServiceProvider(IServiceProvider serviceProvider) { }
     }
 }

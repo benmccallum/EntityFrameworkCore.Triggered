@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkCore.Triggered.Lifecycles.Abstractions\EntityFrameworkCore.Triggered.Lifecycles.Abstractions.csproj" />
+    <ProjectReference Include="..\EntityFrameworkCore.Triggered\EntityFrameworkCore.Triggered.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Internal\" />
+  </ItemGroup>
+
+</Project>

@@ -123,6 +123,7 @@ namespace EntityFrameworkCore.Triggered.Infrastructure.Internal
         public int MaxRecursion => _maxRecursion;
         public RecursionMode RecursionMode => _recursionMode;
         public IEnumerable<(object typeOrInstance, ServiceLifetime lifetime)> Triggers => _triggers ?? Enumerable.Empty<(object typeOrInstance, ServiceLifetime lifetime)>();
+        public IEnumerable<Type> TriggerTypes => _triggerTypes ?? Enumerable.Empty<Type>();
 
         public void ApplyServices(IServiceCollection services)
         {
