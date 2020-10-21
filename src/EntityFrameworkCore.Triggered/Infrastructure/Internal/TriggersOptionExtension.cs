@@ -214,7 +214,7 @@ namespace EntityFrameworkCore.Triggered.Infrastructure.Internal
                     {
                         foreach (var customTriggerType in _triggerTypes.Distinct())
                         {
-                            var customTriggers = TypeHelpers.FindGenericInterfaces(triggerType, customTriggerType);
+                            var customTriggers = triggerType.GetInterfaces().Where(x => x == customTriggerType).Concat(TypeHelpers.FindGenericInterfaces(triggerType, customTriggerType));
 
                             foreach (var customTrigger in customTriggers)
                             {

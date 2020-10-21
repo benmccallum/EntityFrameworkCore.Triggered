@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Xunit;
 
-namespace EntityFramework.Triggered.Lifecycles.Tests.Extensions
+namespace EntityFrameworkCore.Triggered.Lifecycles.Tests.Extensions
 {
     public class TriggersContextOptionsBuilderExtensionsTests
     {

@@ -32,6 +32,10 @@ namespace EntityFrameworkCore.Triggered
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        public ITriggerDiscoveryService DiscoveryService => _triggerDiscoveryService;
+
+        public TriggerContextTracker Tracker => _tracker;
+
         public void DiscoverChanges()
             => _tracker.DiscoverChanges().Count();
 
