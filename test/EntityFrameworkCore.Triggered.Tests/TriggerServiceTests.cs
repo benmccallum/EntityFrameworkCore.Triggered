@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntityFrameworkCore.Triggered.Internal;
 using EntityFrameworkCore.Triggered.Internal.RecursionStrategy;
 using EntityFrameworkCore.Triggered.Tests.Stubs;
 using Microsoft.EntityFrameworkCore;
@@ -40,14 +41,14 @@ namespace EntityFrameworkCore.Triggered.Tests
         [Fact]
         public void Current_WithoutSession_ReturnsNull()
         {
-            var subject = new TriggerService(new TriggerDiscoveryServiceStub(), new NoRecursionStrategy(), new LoggerFactory(), new OptionsSnapshotStub<TriggerOptions>());
+            var subject = new TriggerService(new TriggerSessionFactoryStub());
             Assert.Null(subject.Current);
         }
 
         [Fact]
         public void Current_WithSingleSession_ReturnsSession()
         {
-            var subject = new TriggerService(new TriggerDiscoveryServiceStub(), new NoRecursionStrategy(), new LoggerFactory(), new OptionsSnapshotStub<TriggerOptions>());
+            var subject = new TriggerService(new TriggerSessionFactoryStub());
             var dbContext = new TestDbContext();
 
             var triggerSession = subject.CreateSession(dbContext, null);
@@ -58,7 +59,7 @@ namespace EntityFrameworkCore.Triggered.Tests
         [Fact]
         public void Current_WithMultipleSessions_ReturnsLatestSession()
         {
-            var subject = new TriggerService(new TriggerDiscoveryServiceStub(), new NoRecursionStrategy(), new LoggerFactory(), new OptionsSnapshotStub<TriggerOptions>());
+            var subject = new TriggerService(new TriggerSessionFactoryStub());
             var dbContext = new TestDbContext();
 
             subject.CreateSession(dbContext, null);

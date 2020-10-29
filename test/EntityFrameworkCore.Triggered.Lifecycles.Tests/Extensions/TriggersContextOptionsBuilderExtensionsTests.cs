@@ -16,62 +16,6 @@ namespace EntityFrameworkCore.Triggered.Lifecycles.Tests.Extensions
     public class TriggersContextOptionsBuilderExtensionsTests
     {
         [Fact]
-        public void UseLifecyleBeforeSaveStartingTriggers_AddsTriggerType()
-        {
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder();
-            var subject = new TriggersContextOptionsBuilder(dbContextOptionsBuilder);
-            
-            subject.UseLifecyleBeforeSaveStartingTriggers();
-
-            var extension = dbContextOptionsBuilder.Options.GetExtension<TriggersOptionExtension>();
-            Assert.NotNull(extension);
-            Assert.Single(extension.TriggerTypes);
-            Assert.Equal(typeof(IBeforeSaveStartingTrigger), extension.TriggerTypes.First());
-        }
-
-        [Fact]
-        public void UseLifecyleBeforeSaveStartedTriggers_AddsTriggerType()
-        {
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder();
-            var subject = new TriggersContextOptionsBuilder(dbContextOptionsBuilder);
-
-            subject.UseLifecyleBeforeSaveStartedTriggers();
-
-            var extension = dbContextOptionsBuilder.Options.GetExtension<TriggersOptionExtension>();
-            Assert.NotNull(extension);
-            Assert.Single(extension.TriggerTypes);
-            Assert.Equal(typeof(IBeforeSaveStartedTrigger), extension.TriggerTypes.First());
-        }
-
-        [Fact]
-        public void UseLifecyleAfterSaveStartingTriggers_AddsTriggerType()
-        {
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder();
-            var subject = new TriggersContextOptionsBuilder(dbContextOptionsBuilder);
-
-            subject.UseLifecyleAfterSaveStartingTriggers();
-
-            var extension = dbContextOptionsBuilder.Options.GetExtension<TriggersOptionExtension>();
-            Assert.NotNull(extension);
-            Assert.Single(extension.TriggerTypes);
-            Assert.Equal(typeof(IAfterSaveStartingTrigger), extension.TriggerTypes.First());
-        }
-
-        [Fact]
-        public void UseLifecyleAfterSaveStartedTriggers_AddsTriggerType()
-        {
-            var dbContextOptionsBuilder = new DbContextOptionsBuilder();
-            var subject = new TriggersContextOptionsBuilder(dbContextOptionsBuilder);
-
-            subject.UseLifecyleAfterSaveStartedTriggers();
-
-            var extension = dbContextOptionsBuilder.Options.GetExtension<TriggersOptionExtension>();
-            Assert.NotNull(extension);
-            Assert.Single(extension.TriggerTypes);
-            Assert.Equal(typeof(IAfterSaveStartedTrigger), extension.TriggerTypes.First());
-        }
-
-        [Fact]
         public void UseLifecyleTriggers_AddsTriggerTypes()
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder();

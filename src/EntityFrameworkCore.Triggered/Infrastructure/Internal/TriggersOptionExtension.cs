@@ -140,6 +140,7 @@ namespace EntityFrameworkCore.Triggered.Infrastructure.Internal
             services.TryAddScoped<TriggerService>();
             services.TryAddScoped<IResettableService>(serviceProvider => serviceProvider.GetRequiredService<TriggerService>());
             services.TryAddScoped<ITriggerService>(serviceProvider => serviceProvider.GetRequiredService<TriggerService>());
+            services.TryAddScoped<ITriggerSessionFactory, TriggerSessionFactory>();
 
 #if EFCORETRIGGERED2
             services.TryAddScoped<IInterceptor, TriggerSessionSaveChangesInterceptor>();

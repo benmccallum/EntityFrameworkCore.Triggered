@@ -15,6 +15,8 @@ namespace EntityFrameworkCore.Triggered.Infrastructure
             _optionsBuilder = optionsBuilder ?? throw new ArgumentNullException(nameof(optionsBuilder));
         }
 
+        public DbContextOptionsBuilder DbContextOptionsBuilder => _optionsBuilder;
+
         public TriggersContextOptionsBuilder AddTrigger<TTrigger>()
             => AddTrigger<TTrigger>(ServiceLifetime.Transient);
 

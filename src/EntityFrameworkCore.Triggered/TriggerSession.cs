@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EntityFrameworkCore.Triggered
 {
-    public class TriggerSession : ITriggerSession
+    public sealed class TriggerSession : ITriggerSession
     {
         static ITriggerContextDiscoveryStrategy? _beforeSaveTriggerContextDiscoveryStrategy;
         static ITriggerContextDiscoveryStrategy? _beforeSaveTriggerContextDiscoveryStrategyWithSkipDetectedChanges; // To satisfy RaiseBeforeSaveTrigger's overload
@@ -35,6 +35,8 @@ namespace EntityFrameworkCore.Triggered
         public ITriggerDiscoveryService DiscoveryService => _triggerDiscoveryService;
 
         public TriggerContextTracker Tracker => _tracker;
+
+        public ILogger Logger => _logger;
 
         public void DiscoverChanges()
             => _tracker.DiscoverChanges().Count();

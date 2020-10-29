@@ -5,8 +5,4 @@
     <ProjectReference Include="..\EntityFrameworkCore.Triggered\EntityFrameworkCore.Triggered.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Internal\" />
-  </ItemGroup>
-
 </Project>

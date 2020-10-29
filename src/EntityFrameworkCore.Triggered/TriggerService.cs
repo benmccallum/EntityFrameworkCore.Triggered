@@ -13,19 +13,13 @@ namespace EntityFrameworkCore.Triggered
 {
     public class TriggerService : ITriggerService, IResettableService
     {
-        readonly ITriggerDiscoveryService _triggerDiscoveryService;
-        readonly IRecursionStrategy _recursionStrategy;
-        readonly ILoggerFactory _loggerFactory;
-        readonly TriggerOptions _options;
-
+        readonly ITriggerSessionFactory _triggerSessionFactory;
+        
         ITriggerSession? _currentTriggerSession;
 
-        public TriggerService(ITriggerDiscoveryService triggerDiscoveryService, IRecursionStrategy recursionStrategy, ILoggerFactory loggerFactory, IOptionsSnapshot<TriggerOptions> triggerOptionsSnapshot)
+        public TriggerService(ITriggerSessionFactory triggerSessionFactory)
         {
-            _triggerDiscoveryService = triggerDiscoveryService ?? throw new ArgumentNullException(nameof(triggerDiscoveryService));
-            _recursionStrategy = recursionStrategy ?? throw new ArgumentNullException(nameof(recursionStrategy));
-            _loggerFactory = loggerFactory ?? throw new ArgumentNullException(nameof(loggerFactory));
-            _options = triggerOptionsSnapshot.Value;
+            _triggerSessionFactory = triggerSessionFactory ?? throw new ArgumentNullException(nameof(triggerSessionFactory));
         }
 
         public ITriggerSession? Current
@@ -41,15 +35,7 @@ namespace EntityFrameworkCore.Triggered
                 throw new ArgumentNullException(nameof(context));
             }
 
-            var triggerContextTracker = new TriggerContextTracker(context.ChangeTracker, _recursionStrategy);
-
-            if (serviceProvider != null)
-            {
-                _triggerDiscoveryService.ServiceProviderAccessor = new TriggerServiceProviderAccessor(serviceProvider);
-            }
-
-            var triggerSession = new TriggerSession(this, _options, _triggerDiscoveryService, triggerContextTracker, _loggerFactory.CreateLogger<TriggerSession>());
-
+            var triggerSession = _triggerSessionFactory.CreateSession(this, context, serviceProvider);
             _currentTriggerSession = triggerSession;
 
             return triggerSession;
@@ -71,4 +57,5 @@ namespace EntityFrameworkCore.Triggered
             return Task.CompletedTask;
         }
     }
+
 }
