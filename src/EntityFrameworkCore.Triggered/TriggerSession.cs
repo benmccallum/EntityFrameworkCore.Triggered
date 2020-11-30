@@ -27,17 +27,14 @@ namespace EntityFrameworkCore.Triggered
         {
             _triggerService = triggerService ?? throw new ArgumentNullException(nameof(triggerService));
             _options = options ?? throw new ArgumentNullException(nameof(options));
-            _triggerDiscoveryService = triggerDiscoveryService ?? throw new ArgumentNullException(nameof(ITriggerDiscoveryService));
+            _triggerDiscoveryService = triggerDiscoveryService ?? throw new ArgumentNullException(nameof(triggerDiscoveryService));
             _tracker = tracker ?? throw new ArgumentNullException(nameof(tracker));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public ITriggerDiscoveryService DiscoveryService => _triggerDiscoveryService;
-
         public TriggerContextTracker Tracker => _tracker;
 
-        public ILogger Logger => _logger;
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1806:Do not ignore method results", Justification = "Incorrect warning")]
         public void DiscoverChanges()
             => _tracker.DiscoverChanges().Count();
 
@@ -153,6 +150,8 @@ namespace EntityFrameworkCore.Triggered
             {
                 _triggerService.Current = null;
             }
+
+            GC.SuppressFinalize(this);
         }
     }
 }

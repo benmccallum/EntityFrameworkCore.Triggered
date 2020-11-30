@@ -10,14 +10,14 @@ namespace PrimarySchool.Triggers
 {
     public class StudentSignupToMandatoryCourses : IBeforeSaveTrigger<Student>
     {
-        readonly ApplicationContext _applicationContext;
+        readonly ApplicationDbContext _applicationContext;
 
-        public StudentSignupToMandatoryCourses(ApplicationContext applicationContext)
+        public StudentSignupToMandatoryCourses(ApplicationDbContext applicationContext)
         {
             _applicationContext = applicationContext;
         }
 
-        public async Task BeforeSave(ITriggerContext<Student> context, CancellationToken cancellationToken)
+        public Task BeforeSave(ITriggerContext<Student> context, CancellationToken cancellationToken)
         {
             var mandatoryCourses = _applicationContext.Courses
                 .Where(x => x.IsMandatory)
@@ -32,7 +32,7 @@ namespace PrimarySchool.Triggers
                 }
             }
 
-            await _applicationContext.SaveChangesAsync(cancellationToken);
+            return Task.CompletedTask;
         }
     }
 }
