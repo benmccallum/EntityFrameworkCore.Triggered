@@ -21,8 +21,10 @@ namespace StudentManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddMvc();
 
             services.AddSingleton<EmailService>();
+            services.AddScoped<FooService>();
 
             services
                 .AddDbContext<ApplicationDbContext>(options => {
@@ -32,6 +34,7 @@ namespace StudentManager
                             triggerOptions.AddTrigger<Triggers.Traits.Audited.CreateAuditRecord>();
                             triggerOptions.AddTrigger<Triggers.Traits.SoftDelete.EnsureSoftDelete>();
                             triggerOptions.AddTrigger<Triggers.Courses.AutoSignupStudents>();
+                            triggerOptions.AddTrigger<Triggers.Courses.CourseSavedNotifier>();
                             triggerOptions.AddTrigger<Triggers.StudentCourses.BlockRemovalWhenCourseIsMandatory>();
                             triggerOptions.AddTrigger<Triggers.StudentCourses.SendWelcomingEmail>();
                             triggerOptions.AddTrigger<Triggers.Students.AssignRegistrationDate>();
@@ -72,6 +75,7 @@ namespace StudentManager
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
