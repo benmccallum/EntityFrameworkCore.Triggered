@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace StudentManager.Controllers
 {
@@ -14,13 +15,23 @@ namespace StudentManager.Controllers
             _context = context;
         }
 
-        [HttpPost("")]
-        public async Task<IActionResult> PostAsync()
+        [HttpPost("add")]
+        public async Task<IActionResult> PostAddAsync()
         {
             _context.Courses.Add(new Course
             {
                 DisplayName = "Some course"
             });
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> PostUpdateAsync()
+        {
+            var course = await _context.Courses.FirstAsync();
+            course.DisplayName += ".";
             await _context.SaveChangesAsync();
 
             return Ok();

@@ -27,6 +27,8 @@ namespace StudentManager
             services.AddSingleton<EmailService>();
             services.AddScoped<FooService>();
 
+            services.AddCourseDataChangedPublishing();
+
             services
                 //.AddDbContext<ApplicationDbContext>(options => {
                 //    options
@@ -53,14 +55,7 @@ namespace StudentManager
             options
                 .UseSqlite("Data source=test.db")
                 .UseTriggers(triggerOptions => {
-                    triggerOptions.AddTrigger<Triggers.Traits.Audited.CreateAuditRecord>();
-                    triggerOptions.AddTrigger<Triggers.Traits.SoftDelete.EnsureSoftDelete>();
-                    triggerOptions.AddTrigger<Triggers.Courses.AutoSignupStudents>();
-                    triggerOptions.AddTrigger<Triggers.Courses.CourseSavedNotifier>();
-                    triggerOptions.AddTrigger<Triggers.StudentCourses.BlockRemovalWhenCourseIsMandatory>();
-                    triggerOptions.AddTrigger<Triggers.StudentCourses.SendWelcomingEmail>();
-                    triggerOptions.AddTrigger<Triggers.Students.AssignRegistrationDate>();
-                    triggerOptions.AddTrigger<Triggers.Students.SignupToMandatoryCourses>();
+                    triggerOptions.AddAssemblyTriggers();
                 });
 
             options.EnableSensitiveDataLogging(true);

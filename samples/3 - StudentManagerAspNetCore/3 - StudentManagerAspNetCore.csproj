@@ -9,6 +9,11 @@
   <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Triggered" Version="$(EFCoreTriggeredPackageVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFCorePackageVersion)" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\EntityFrameworkCore.Triggered.Extensions\EntityFrameworkCore.Triggered.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

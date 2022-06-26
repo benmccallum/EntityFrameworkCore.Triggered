@@ -19,7 +19,10 @@ namespace EntityFrameworkCore.Triggered.AspNetCoreIntegrationTests
             // Act
             for (var i = 0; i < 10; i++)
             {
-                var resp = await client.PostAsync("/api/course", new StringContent("yo"));
+                var isEven = i % 2 == 0;
+                var apiSuffix = isEven ? "update" : "add";
+
+                var resp = await client.PostAsync($"/api/course/{apiSuffix}", new StringContent("yo"));
             }
 
             // Assert
