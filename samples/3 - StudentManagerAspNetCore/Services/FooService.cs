@@ -14,7 +14,7 @@ namespace StudentManager.Services
 
         public async Task DoSomethingAsync()
         {
-            var count = await _applicationContext.Students.CountAsync();
+            var count = await _applicationContext.Courses.CountAsync();
 
         }
     }
