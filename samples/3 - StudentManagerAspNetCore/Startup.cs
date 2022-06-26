@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,24 +28,43 @@ namespace StudentManager
             services.AddScoped<FooService>();
 
             services
-                .AddDbContext<ApplicationDbContext>(options => {
-                    options
-                        .UseSqlite("Data source=test.db")
-                        .UseTriggers(triggerOptions => {
-                            triggerOptions.AddTrigger<Triggers.Traits.Audited.CreateAuditRecord>();
-                            triggerOptions.AddTrigger<Triggers.Traits.SoftDelete.EnsureSoftDelete>();
-                            triggerOptions.AddTrigger<Triggers.Courses.AutoSignupStudents>();
-                            triggerOptions.AddTrigger<Triggers.Courses.CourseSavedNotifier>();
-                            triggerOptions.AddTrigger<Triggers.StudentCourses.BlockRemovalWhenCourseIsMandatory>();
-                            triggerOptions.AddTrigger<Triggers.StudentCourses.SendWelcomingEmail>();
-                            triggerOptions.AddTrigger<Triggers.Students.AssignRegistrationDate>();
-                            triggerOptions.AddTrigger<Triggers.Students.SignupToMandatoryCourses>();
-                        });
+                //.AddDbContext<ApplicationDbContext>(options => {
+                //    options
+                //        .UseSqlite("Data source=test.db")
+                //        .UseTriggers(triggerOptions => {
+                //            triggerOptions.AddTrigger<Triggers.Traits.Audited.CreateAuditRecord>();
+                //            triggerOptions.AddTrigger<Triggers.Traits.SoftDelete.EnsureSoftDelete>();
+                //            triggerOptions.AddTrigger<Triggers.Courses.AutoSignupStudents>();
+                //            triggerOptions.AddTrigger<Triggers.Courses.CourseSavedNotifier>();
+                //            triggerOptions.AddTrigger<Triggers.StudentCourses.BlockRemovalWhenCourseIsMandatory>();
+                //            triggerOptions.AddTrigger<Triggers.StudentCourses.SendWelcomingEmail>();
+                //            triggerOptions.AddTrigger<Triggers.Students.AssignRegistrationDate>();
+                //            triggerOptions.AddTrigger<Triggers.Students.SignupToMandatoryCourses>();
+                //        });
 
-                    options.EnableSensitiveDataLogging(true);
-                })
+                //    options.EnableSensitiveDataLogging(true);
+                //})
+                .AddTriggeredDbContextPool<ApplicationDbContext>(ConfigureOptions())
+                .AddTriggeredDbContextFactory<ApplicationDbContext>(ConfigureOptions())
                 .AddHttpContextAccessor();
         }
+
+        private static Action<DbContextOptionsBuilder> ConfigureOptions() => options => {
+            options
+                .UseSqlite("Data source=test.db")
+                .UseTriggers(triggerOptions => {
+                    triggerOptions.AddTrigger<Triggers.Traits.Audited.CreateAuditRecord>();
+                    triggerOptions.AddTrigger<Triggers.Traits.SoftDelete.EnsureSoftDelete>();
+                    triggerOptions.AddTrigger<Triggers.Courses.AutoSignupStudents>();
+                    triggerOptions.AddTrigger<Triggers.Courses.CourseSavedNotifier>();
+                    triggerOptions.AddTrigger<Triggers.StudentCourses.BlockRemovalWhenCourseIsMandatory>();
+                    triggerOptions.AddTrigger<Triggers.StudentCourses.SendWelcomingEmail>();
+                    triggerOptions.AddTrigger<Triggers.Students.AssignRegistrationDate>();
+                    triggerOptions.AddTrigger<Triggers.Students.SignupToMandatoryCourses>();
+                });
+
+            options.EnableSensitiveDataLogging(true);
+        };
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

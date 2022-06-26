@@ -17,7 +17,10 @@ namespace EntityFrameworkCore.Triggered.AspNetCoreIntegrationTests
             var client = application.CreateClient();
 
             // Act
-            var resp = await client.PostAsync("/api/course", new StringContent("yo"));
+            for (var i = 0; i < 10; i++)
+            {
+                var resp = await client.PostAsync("/api/course", new StringContent("yo"));
+            }
 
             // Assert
             // shouldn't have thrown
