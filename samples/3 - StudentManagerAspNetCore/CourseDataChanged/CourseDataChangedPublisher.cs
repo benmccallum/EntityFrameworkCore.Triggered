@@ -39,7 +39,7 @@ namespace StudentManager.CourseDataChanged
                     }
                     else if (c is ITriggerContext<ICourseData> CourseDataChange)
                     {
-                        return CourseDataChange.Entity.Id;
+                        return CourseDataChange.Entity.CourseId;
                     }
                     throw new NotImplementedException();
                 })

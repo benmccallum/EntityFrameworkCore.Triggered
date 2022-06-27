@@ -1,4 +1,5 @@
 using System;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace StudentManager
             services.AddSingleton<EmailService>();
             services.AddScoped<FooService>();
 
+            services.AddMediatR(typeof(Startup));
             services.AddCourseDataChangedPublishing();
 
             services

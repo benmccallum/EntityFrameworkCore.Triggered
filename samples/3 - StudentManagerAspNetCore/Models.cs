@@ -17,12 +17,7 @@ namespace StudentManager
         public DateTimeOffset? DeletedOn { get; set; }
     }
 
-    public interface ICourseData
-    {
-        int Id { get; }
-    }
-
-    public class Course : ISoftDelete, IAudited, ICourseData
+    public class Course : ISoftDelete, IAudited
     {
         public int Id { get; set; }
 
@@ -33,7 +28,12 @@ namespace StudentManager
         public DateTimeOffset? DeletedOn { get; set; }
     }
 
-    public class StudentCourse
+    public interface ICourseData
+    {
+        int CourseId { get; }
+    }
+
+    public class StudentCourse : ICourseData
     {
         public int StudentId { get; set; }
 

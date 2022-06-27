@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkCore.Triggered\EntityFrameworkCore.Triggered.csproj" />
+    <!--<ProjectReference Include="..\EntityFrameworkCore.Triggered\EntityFrameworkCore.Triggered.csproj" />-->
+	  <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.0.0" />
   </ItemGroup>
 </Project>
