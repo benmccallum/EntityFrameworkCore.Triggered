@@ -9,7 +9,7 @@
   <ItemGroup>
 	  
     <!--<PackageReference Include="EntityFrameworkCore.Triggered" Version="$(EFCoreTriggeredPackageVersion)" />-->
-	  <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.0.0" />
+	  <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFCorePackageVersion)" />
     
 	  <!--<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />-->
