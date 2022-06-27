@@ -7,10 +7,15 @@
   </PropertyGroup>
 	
   <ItemGroup>
+	  
     <!--<PackageReference Include="EntityFrameworkCore.Triggered" Version="$(EFCoreTriggeredPackageVersion)" />-->
 	  <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EFCorePackageVersion)" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    
+	  <!--<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />-->
+	  
+	  <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+	  <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="8.1.0" />
   </ItemGroup>
 	
   <ItemGroup>

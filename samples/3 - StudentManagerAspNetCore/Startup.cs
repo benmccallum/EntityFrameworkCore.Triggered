@@ -1,4 +1,6 @@
 using System;
+using Autofac;
+using FPCS.Business.Autofac;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +30,7 @@ namespace StudentManager
             services.AddSingleton<EmailService>();
             services.AddScoped<FooService>();
 
-            services.AddMediatR(typeof(Startup));
+            //services.AddMediatR(typeof(Startup));
             services.AddCourseDataChangedPublishing();
 
             services
@@ -62,6 +64,11 @@ namespace StudentManager
 
             options.EnableSensitiveDataLogging(true);
         };
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new FpcsBusinessModule());
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
